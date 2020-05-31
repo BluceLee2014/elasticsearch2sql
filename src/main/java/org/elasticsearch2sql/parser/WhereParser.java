@@ -7,7 +7,7 @@ import com.alibaba.druid.sql.ast.statement.SQLSelectQueryBlock;
 import org.elasticsearch2sql.exception.SqlParseException;
 import org.elasticsearch2sql.parser.domain.Condition;
 import org.elasticsearch2sql.parser.domain.Where;
-import org.elasticsearch2sql.util.ParserUtil;
+import org.elasticsearch2sql.util.ParserUtils;
 import lombok.Data;
 import org.elasticsearch.common.util.set.Sets;
 
@@ -104,9 +104,9 @@ public class WhereParser {
                 operator = "==";
             }
             sqlMethodInvokeExpr.addParameter(
-                    new SQLCharExpr(ParserUtil.expr2Object(bExpr.getLeft(), "'") +
+                    new SQLCharExpr(ParserUtils.expr2Object(bExpr.getLeft(), "'") +
                             " " + operator + " " +
-                            ParserUtil.expr2Object(bExpr.getRight(), "'"))
+                            ParserUtils.expr2Object(bExpr.getRight(), "'"))
             );
 
             explanCond("AND", sqlMethodInvokeExpr, where);
@@ -121,7 +121,7 @@ public class WhereParser {
         if ((bExpr.getLeft() instanceof SQLPropertyExpr || bExpr.getLeft() instanceof SQLIdentifierExpr) &&
                 (bExpr.getRight() instanceof SQLPropertyExpr || bExpr.getRight() instanceof SQLIdentifierExpr) &&
                 Sets.newHashSet("=", "<", ">", ">=", "<=").contains(bExpr.getOperator().getName()) &&
-                !ParserUtil.isFromJoinOrUnionTable(bExpr)
+                !ParserUtils.isFromJoinOrUnionTable(bExpr)
 
                 ) {
             SQLMethodInvokeExpr sqlMethodInvokeExpr = new SQLMethodInvokeExpr("script", null);
@@ -130,8 +130,8 @@ public class WhereParser {
                 operator = "==";
             }
 
-            String leftProperty = ParserUtil.expr2Object(bExpr.getLeft()).toString();
-            String rightProperty = ParserUtil.expr2Object(bExpr.getRight()).toString();
+            String leftProperty = ParserUtils.expr2Object(bExpr.getLeft()).toString();
+            String rightProperty = ParserUtils.expr2Object(bExpr.getRight()).toString();
             if (leftProperty.split("\\.").length > 1) {
 
                 leftProperty = leftProperty.substring(leftProperty.split("\\.")[0].length() + 1);

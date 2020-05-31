@@ -8,6 +8,7 @@ public class QueryAO<T> {
     private String index;
     private String type;
     private String sql;
+    private String requestBody;
     private T t;
 
 }

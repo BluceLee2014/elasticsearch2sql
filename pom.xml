@@ -7,7 +7,7 @@
     <groupId>org.elasticsearch2sql</groupId>
     <artifactId>elasticsearch2sql</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
+    <packaging>jar</packaging>
     <properties>
         <java.version>1.8</java.version>
         <spring.version>5.2.4.RELEASE</spring.version>

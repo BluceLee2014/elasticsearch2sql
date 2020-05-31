@@ -24,11 +24,8 @@ public class QueryAPIImpl implements QueryAPI {
     public <T> SearchResultEntity<T> query(QueryAO<T> queryAO) throws IOException, SqlParseException, ClassNotFoundException {
         String sql = queryAO.getSql();
         // TODO 解析SQL，生成JSON字符串
-        String requestBody = parserEQLExpression.doParserEQL(sql);
-        String uri = queryAO.getIndex() + "/" + queryAO.getType() + "/_search";
-//        Class clazz = Class.forName("com.moolng.domain.User");
-        Class clazz = queryAO.getT().getClass();
-        return (SearchResultEntity<T>) requestQuery.query(requestBody, uri, clazz);
+        queryAO.setRequestBody(parserEQLExpression.doParserEQL(sql));
+        return (SearchResultEntity<T>) requestQuery.query(queryAO);
     }
 
 }
