@@ -1,0 +1,19 @@
+
+*.class
+.settings/
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+.classpath
+.project
+
+/bin/
+/target/
+log/
+elasticsearch2sql.iml
+.idea
+
